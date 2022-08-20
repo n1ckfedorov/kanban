@@ -9,15 +9,18 @@ import Checkbox from "@mui/material/Checkbox";
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { removeTask } from "../../store/tasks/actions";
+import { Status } from "../../const/statuses";
 
-export interface ItemProps {
+export interface ITaskProps {
   id: number;
   title: string;
   completed: boolean;
+  status: Status;
 }
 
-export const Item: FC<ItemProps> = ({ id, title, completed }) => {
+export const Task: FC<ITaskProps> = ({ id, title, completed, status }) => {
   const dispatch = useDispatch();
+
   return (
     <ListItem>
       <ListItemAvatar>
@@ -26,12 +29,13 @@ export const Item: FC<ItemProps> = ({ id, title, completed }) => {
         </Avatar>
       </ListItemAvatar>
       <ListItemText primary={title} />
-      <IconButton aria-label="delete">
-        <DeleteIcon
-          onClick={() => {
-            dispatch(removeTask(id));
-          }}
-        />
+      <IconButton
+        aria-label="delete"
+        onClick={() => {
+          dispatch(removeTask(id));
+        }}
+      >
+        <DeleteIcon />
       </IconButton>
       <Checkbox defaultChecked={completed ? true : false} />
     </ListItem>
