@@ -1,4 +1,4 @@
-import { Grid, ListItemText } from "@mui/material";
+import { CircularProgress, Grid, ListItemText } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { todos } from "../../api/requests/Tasks";
@@ -8,7 +8,7 @@ import { Group } from "../Group";
 import { ITaskProps } from "../Task";
 
 interface ITodo {
-  tasks: ITaskProps[];
+  tasks: [ITaskProps[]];
 }
 
 export const Todo = () => {
@@ -43,7 +43,7 @@ export const Todo = () => {
         }}
       />
       {!isLoading ? (
-        <Grid container spacing={1}>
+        <Grid container>
           {Object.values(Status).map((status) => (
             <Grid key={status} item xs={4}>
               <Group status={status} tasks={tasks} />
@@ -51,7 +51,7 @@ export const Todo = () => {
           ))}
         </Grid>
       ) : (
-        "Loading..."
+        <CircularProgress />
       )}
     </>
   );

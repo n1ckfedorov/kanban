@@ -10,18 +10,18 @@ import { Status } from "../../const/statuses";
 
 interface Igroup {
   status: Status;
-  tasks: ITaskProps[];
+  tasks: [ITaskProps[]];
 }
 
 export const Group: FC<Igroup> = ({ status, tasks }) => {
-  const taskInStatus = tasks.filter((task) => task.status === status);
+  const taskInStatus = tasks[0].filter((task) => task.status === status);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, height: "100%" }}>
       <ListItem>
         <ListItemText
           sx={{ my: 0 }}
-          primary={status}
+          primary={[status, " " + taskInStatus.length]}
           primaryTypographyProps={{
             fontSize: 20,
             fontWeight: "medium",
@@ -34,7 +34,11 @@ export const Group: FC<Igroup> = ({ status, tasks }) => {
       <Grid
         container
         spacing={2}
-        sx={{ display: "flex", justifyContent: "center", padding: "20px 0 " }}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          padding: "20px 0 ",
+        }}
       >
         {taskInStatus.length > 0 ? (
           <List sx={{ flexGrow: 1, maxWidth: "500px" }}>
@@ -49,7 +53,7 @@ export const Group: FC<Igroup> = ({ status, tasks }) => {
             ))}
           </List>
         ) : (
-          <Alert severity="info"> {status} status - no tasks </Alert>
+          <Alert severity="success"> {status} status - empty </Alert>
         )}
       </Grid>
     </Box>
