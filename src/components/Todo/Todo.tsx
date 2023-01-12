@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { todos } from "../../api/requests/Tasks";
 import { Status } from "../../const/statuses";
 import { addAllTasks } from "../../store/tasks/actions";
+import { Form } from "../Form";
 import { Group } from "../Group";
 import { ITaskProps } from "../Task";
 
 interface ITodo {
-  tasks: [ITaskProps[]];
+  tasks: ITaskProps[];
 }
 
 export const Todo = () => {
@@ -53,6 +54,7 @@ export const Todo = () => {
       ) : (
         <CircularProgress />
       )}
+      <Form />
     </>
   );
 };

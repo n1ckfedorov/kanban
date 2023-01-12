@@ -8,9 +8,9 @@ export const addAllTasks = (task : ITaskProps) => ({
     payload: task
 });
 
-export const addTask = (task : ITaskProps) => ({
+export const addTask = (title: string ) => ({
     type: TASK_ADD,
-    payload: task
+    payload: {title}
 });
 
 export const editTaskStatus = (id: number , status: Status) => ({

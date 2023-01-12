@@ -10,11 +10,11 @@ import { Status } from "../../const/statuses";
 
 interface Igroup {
   status: Status;
-  tasks: [ITaskProps[]];
+  tasks: ITaskProps[];
 }
 
 export const Group: FC<Igroup> = ({ status, tasks }) => {
-  const taskInStatus = tasks[0].filter((task) => task.status === status);
+  const taskInStatus = tasks.filter((task) => task.status === status);
 
   return (
     <Box sx={{ flexGrow: 1, height: "100%" }}>
@@ -53,7 +53,7 @@ export const Group: FC<Igroup> = ({ status, tasks }) => {
             ))}
           </List>
         ) : (
-          <Alert severity="success"> {status} status - empty </Alert>
+          <Alert severity="success"> {status} status - is empty </Alert>
         )}
       </Grid>
     </Box>
