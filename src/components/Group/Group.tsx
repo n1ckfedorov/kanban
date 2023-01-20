@@ -14,14 +14,14 @@ interface Igroup {
 }
 
 export const Group: FC<Igroup> = ({ status, tasks }) => {
-  const taskInStatus = tasks.filter((task) => task.status === status);
+  const taskInStatus = tasks?.filter((task) => task.status === status);
 
   return (
     <Box sx={{ flexGrow: 1, height: "100%" }}>
       <ListItem>
         <ListItemText
           sx={{ my: 0 }}
-          primary={[status, " " + taskInStatus.length]}
+          primary={[status, " " + taskInStatus?.length]}
           primaryTypographyProps={{
             fontSize: 20,
             fontWeight: "medium",
@@ -40,7 +40,7 @@ export const Group: FC<Igroup> = ({ status, tasks }) => {
           padding: "20px 0 ",
         }}
       >
-        {taskInStatus.length > 0 ? (
+        {taskInStatus?.length > 0 ? (
           <List sx={{ flexGrow: 1, maxWidth: "500px" }}>
             {taskInStatus.map((task) => (
               <Task

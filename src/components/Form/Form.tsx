@@ -1,17 +1,39 @@
-import { Button, Typography, TextField } from "@mui/material";
+import {
+  Button,
+  Typography,
+  TextField,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTask } from "../../store/tasks/actions";
+import { Status } from "../../const/statuses";
+import { addTask } from "../../feature/task/taskSlice";
 
 import styles from "./style.module.scss";
 
 export const Form = () => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
+  const [newStatus, setNewStatus] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    title !== "" && dispatch(addTask(title));
+    title !== "" && dispatch(addTask({ title, newStatus }));
+    setTitle("");
+  };
+
+  const handleReset = () => {
+    setTitle("");
+    setNewStatus("");
+  };
+
+  const handleChange = (event: SelectChangeEvent) => {
+    const status = event.target.value as Status;
+    setNewStatus(status);
   };
 
   return (
@@ -29,17 +51,35 @@ export const Form = () => {
         <TextField
           label="Task name"
           color="success"
+          value={title}
           onChange={(e) => {
             setTitle(e.target.value);
           }}
         />
+        <FormControl size="small">
+          <InputLabel id="demo-simple-select-label">Status</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={newStatus}
+            label="Status"
+            onChange={handleChange}
+          >
+            {Object.values(Status).map((status) => (
+              <MenuItem key={status} value={status}>
+                {status}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
         <div className={styles.actions}>
           <Button
             className={styles.btn}
             variant="outlined"
             color="info"
-            type="reset"
+            type="button"
+            onClick={handleReset}
           >
             Clear Values
           </Button>

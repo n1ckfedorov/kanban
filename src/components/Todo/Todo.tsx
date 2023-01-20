@@ -3,58 +3,69 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { todos } from "../../api/requests/Tasks";
 import { Status } from "../../const/statuses";
-import { addAllTasks } from "../../store/tasks/actions";
+import { addAllTasks } from "../../feature/task/taskSlice";
+
 import { Form } from "../Form";
 import { Group } from "../Group";
 import { ITaskProps } from "../Task";
 
+import styles from "./style.module.scss";
+
 interface ITodo {
-  tasks: ITaskProps[];
+  task: {
+    tasks: ITaskProps[];
+  };
 }
 
 export const Todo = () => {
-  const tasks = useSelector((state: ITodo) => state.tasks);
+  const tasks = useSelector((state: ITodo) => state.task.tasks);
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
   //TODO
   useEffect(() => {
-    todos.get("?_limit=6").then((response) => {
+    todos.get("?_limit=10").then((response) => {
       const tasks = response.data.map((task: ITaskProps) => ({
         ...task,
         status: Status.New,
       }));
+
       dispatch(addAllTasks(tasks));
       setIsLoading(false);
     });
   }, [dispatch]);
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <ListItemText
-        sx={{ my: 0 }}
+        sx={{ my: 0, py: 4 }}
         primary="Kanban 🥹"
         primaryTypographyProps={{
           fontSize: 30,
-          marginY: "30px",
           fontWeight: "medium",
           letterSpacing: 0,
           textAlign: "center",
           textTransform: "uppercase",
         }}
       />
+
       {!isLoading ? (
-        <Grid container>
-          {Object.values(Status).map((status) => (
-            <Grid key={status} item xs={4}>
-              <Group status={status} tasks={tasks} />
-            </Grid>
-          ))}
-        </Grid>
+        <div className={styles.content}>
+          <Grid container sx={{ px: 2 }} className={styles.list}>
+            {Object.values(Status).map((status) => (
+              <Grid key={status} item xs={4}>
+                <Group status={status} tasks={tasks} />
+              </Grid>
+            ))}
+          </Grid>
+
+          <Form />
+        </div>
       ) : (
-        <CircularProgress />
+        <div className={styles.loader}>
+          <CircularProgress />
+        </div>
       )}
-      <Form />
-    </>
+    </div>
   );
 };

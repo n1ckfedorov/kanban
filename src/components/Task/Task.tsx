@@ -7,7 +7,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
-import { editTaskStatus, removeTask } from "../../store/tasks/actions";
 import { Status } from "../../const/statuses";
 import {
   FormControl,
@@ -18,6 +17,7 @@ import {
 } from "@mui/material";
 import { blue, red } from "@mui/material/colors";
 import { toast } from "react-toastify";
+import { editTaskStatus, removeTask } from "../../feature/task/taskSlice";
 
 export interface ITaskProps {
   id: number;
@@ -32,12 +32,13 @@ export const Task: FC<ITaskProps> = ({ id, title, completed, status }) => {
 
   const handleChange = (event: SelectChangeEvent) => {
     const newStatus = event.target.value as Status;
+
     setNewStatus(newStatus);
-    dispatch(editTaskStatus(id, newStatus));
+    dispatch(editTaskStatus({ id, status: newStatus }));
   };
 
   const removeCurrentTask = () => {
-    dispatch(removeTask(id));
+    dispatch(removeTask({ id }));
     toast.success("🦄 Task removed!", {
       position: "top-right",
       autoClose: 2000,
