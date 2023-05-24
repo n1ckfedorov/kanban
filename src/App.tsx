@@ -1,6 +1,6 @@
 import { ToastContainer } from "react-toastify";
-import { Todo } from "./components";
 import "react-toastify/dist/ReactToastify.css";
+import { Todo } from "./components";
 
 function App() {
   return (

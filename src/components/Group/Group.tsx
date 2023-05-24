@@ -1,10 +1,10 @@
+import { Alert, ListItem, ListItemText } from "@mui/material";
 import Box from "@mui/material/Box";
-import List from "@mui/material/List";
 import Grid from "@mui/material/Grid";
-import { Task, ITaskProps } from "../Task";
+import List from "@mui/material/List";
 import { FC } from "react";
-import { Alert, ListItemText, ListItem } from "@mui/material";
 import { Status } from "../../const/statuses";
+import { ITaskProps, Task } from "../Task";
 
 //TODO
 

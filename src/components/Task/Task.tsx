@@ -1,13 +1,5 @@
-import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemText from "@mui/material/ListItemText";
-import DeleteIcon from "@mui/icons-material/Delete";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-import { FC, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Status } from "../../const/statuses";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   FormControl,
   InputLabel,
@@ -15,8 +7,16 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
 import { blue, red } from "@mui/material/colors";
+import IconButton from "@mui/material/IconButton";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import { FC, useState } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { Status } from "../../const/statuses";
 import { editTaskStatus, removeTask } from "../../feature/task/taskSlice";
 
 export interface ITaskProps {
@@ -26,7 +26,7 @@ export interface ITaskProps {
   status: Status;
 }
 
-export const Task: FC<ITaskProps> = ({ id, title, completed, status }) => {
+export const Task: FC<ITaskProps> = ({ id, title, status }) => {
   const dispatch = useDispatch();
   const [newStatus, setNewStatus] = useState(status);
 

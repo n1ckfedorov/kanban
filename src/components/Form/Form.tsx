@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { Status } from "../../const/statuses";
 import { addTask } from "../../feature/task/taskSlice";
 
@@ -20,10 +21,22 @@ export const Form = () => {
   const [title, setTitle] = useState("");
   const [newStatus, setNewStatus] = useState("");
 
+  const emptyFields = title === "" || newStatus === "";
+
+  const emptyFieldsToast = () => {
+    toast.error("😡 Fields are empty!", {
+      position: "top-right",
+      autoClose: 2000,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    title !== "" && dispatch(addTask({ title, newStatus }));
-    setTitle("");
+    !emptyFields ? dispatch(addTask({ title, newStatus })) : emptyFieldsToast();
+    handleReset();
   };
 
   const handleReset = () => {

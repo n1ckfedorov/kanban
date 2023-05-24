@@ -14,7 +14,7 @@ export const taskSlice = createSlice({
       state.tasks = action.payload;
     },
     addTask: (state, action) => {
-      state.tasks.push({
+      state.tasks.unshift({
         title: action.payload.title,
         status: action.payload.newStatus || Status.New,
         id: state.tasks.length + 1,

@@ -22,7 +22,6 @@ export const Todo = () => {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
-  //TODO
   useEffect(() => {
     todos.get("?_limit=10").then((response) => {
       const tasks = response.data.map((task: ITaskProps) => ({
@@ -39,7 +38,7 @@ export const Todo = () => {
     <div className={styles.wrapper}>
       <ListItemText
         sx={{ my: 0, py: 4 }}
-        primary="Kanban 🥹"
+        primary="Dashboard"
         primaryTypographyProps={{
           fontSize: 30,
           fontWeight: "medium",
